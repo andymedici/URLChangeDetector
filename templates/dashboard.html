@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Website Monitor</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 1.5rem 0;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .header h1 {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+        
+        .header-link {
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+        }
+        
+        .header-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .email-form {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 1rem;
+            align-items: end;
+        }
+        
+        .form-group {
+            flex: 1;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        input[type="email"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+        
+        .btn {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover {
+            background: #5a6fd8;
+        }
+        
+        .btn-danger {
+            background: #dc3545;
+        }
+        
+        .btn-danger:hover {
+            background: #c82333;
+        }
+        
+        .subscriptions-section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #333;
+        }
+        
+        .subscription-count {
+            background: #667eea;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .subscription-card {
+            border: 1px solid #e1e5e9;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            background: #f8f9fa;
+            transition: box-shadow 0.3s ease;
+        }
+        
+        .subscription-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        
+        .subscription-url {
+            font-weight: 600;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+            word-break: break-all;
+        }
+        
+        .subscription-url a {
+            color: inherit;
+            text-decoration: none;
+        }
+        
+        .subscription-url a:hover {
+            text-decoration: underline;
+        }
+        
+        .subscription-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #666;
+            font-size: 0.875rem;
+            margin-bottom: 1rem;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        
+        .status-active {
+            background: #d4edda;
+            color: #155724;
+        }
+        
+        .subscription-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #666;
+        }
+        
+        .empty-state-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .empty-state h3 {
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+        
+        .alert {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        
+        .alert.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .alert.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .subscription-meta {
+                flex-direction: column;
+                align-items: start;
+                gap: 0.5rem;
+            }
+            
+            .subscription-actions {
+                flex-direction: column;
+            }
+            
+            .header-content {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-content">
+            <h1>🔍 Website Monitor Dashboard</h1>
+            <a href="/" class="header-link">➕ Add New Monitor</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <div class="email-form">
+            <form id="emailForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Enter your email to view subscriptions</label>
+                        <input type="email" id="email" name="email" required 
+                               placeholder="you@example.com" value="{{ email or '' }}">
+                    </div>
+                    <button type="submit" class="btn">Load Subscriptions</button>
+                </div>
+            </form>
+        </div>
+        
+        <div class="subscriptions-section">
+            <div id="alert" class="alert"></div>
+            
+            <div class="section-header">
+                <h2 class="section-title">Your Subscriptions</h2>
+                <span class="subscription-count" id="subscriptionCount">
+                    {{ subscriptions|length if subscriptions else 0 }}
+                </span>
+            </div>
+            
+            <div id="subscriptionsList">
+                {% if subscriptions %}
+                    {% for subscription in subscriptions %}
+                    <div class="subscription-card" data-id="{{ subscription.id }}">
+                        <div class="subscription-url">
+                            <a href="{{ subscription.url }}" target="_blank" rel="noopener">
+                                {{ subscription.url }}
+                            </a>
+                        </div>
+                        
+                        <div class="subscription-meta">
+                            <div>
+                                <span class="status-badge status-active">✅ Active</span>
+                                <span style="margin-left: 1rem;">
+                                    Sensitivity: {{ subscription.sensitivity|title }}
+                                </span>
+                            </div>
+                            <div>
+                                Created: {{ subscription.created_at.strftime('%b %d, %Y') }}
+                                {% if subscription.last_checked %}
+                                    • Last checked: {{ subscription.last_checked.strftime('%b %d, %H:%M') }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="subscription-actions">
+                            <button class="btn btn-sm btn-danger" 
+                                    onclick="deleteSubscription({{ subscription.id }}, '{{ subscription.email }}')">
+                                🗑️ Delete
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <h3>No subscriptions found</h3>
+                        <p>Enter your email above to view your subscriptions, or create a new one.</p>
+                        <a href="/" class="btn" style="margin-top: 1rem;">Create Your First Monitor</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('email').value;
+            if (email) {
+                window.location.href = `/dashboard?email=${encodeURIComponent(email)}`;
+            }
+        });
+        
+        async function deleteSubscription(subscriptionId, email) {
+            if (!confirm('Are you sure you want to delete this subscription?')) {
+                return;
+            }
+            
+            const alert = document.getElementById('alert');
+            
+            try {
+                const response = await fetch(`/subscriptions/${subscriptionId}?email=${encodeURIComponent(email)}`, {
+                    method: 'DELETE'
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    // Remove the subscription card
+                    const card = document.querySelector(`[data-id="${subscriptionId}"]`);
+                    if (card) {
+                        card.remove();
+                    }
+                    
+                    // Update count
+                    const countElement = document.getElementById('subscriptionCount');
+                    const currentCount = parseInt(countElement.textContent);
+                    countElement.textContent = Math.max(0, currentCount - 1);
+                    
+                    // Show empty state if no more subscriptions
+                    const remainingCards = document.querySelectorAll('.subscription-card');
+                    if (remainingCards.length === 0) {
+                        document.getElementById('subscriptionsList').innerHTML = `
+                            <div class="empty-state">
+                                <div class="empty-state-icon">📭</div>
+                                <h3>No subscriptions found</h3>
+                                <p>All subscriptions have been removed.</p>
+                                <a href="/" class="btn" style="margin-top: 1rem;">Create Your First Monitor</a>
+                            </div>
+                        `;
+                    }
+                    
+                    alert.className = 'alert success';
+                    alert.textContent = '✅ Subscription deleted successfully';
+                    alert.style.display = 'block';
+                    
+                } else {
+                    throw new Error(result.detail || 'Failed to delete subscription');
+                }
+                
+            } catch (error) {
+                alert.className = 'alert error';
+                alert.textContent = `❌ Error: ${error.message}`;
+                alert.style.display = 'block';
+            }
+        }
+    </script>
+</body>
+</html>
