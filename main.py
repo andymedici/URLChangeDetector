@@ -17,7 +17,7 @@ from fastapi.templating import Jinja2Templates
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, HttpUrl
 from sqlalchemy import create_engine, Column, Integer, String, Text, DateTime, Boolean, Index
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy.sql import func
 from apscheduler.schedulers.background import BackgroundScheduler
