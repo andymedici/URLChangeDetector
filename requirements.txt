@@ -8,6 +8,6 @@ pydantic-settings==2.1.0
 jinja2==3.1.2
 requests==2.31.0
 beautifulsoup4==4.12.2
-resend==0.6.1
+resend==2.14.0
 apscheduler==3.10.4
 gunicorn==21.2.0
